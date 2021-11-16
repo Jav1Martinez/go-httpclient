@@ -1,2 +1,4 @@
-# form3tech-exercise
-Form3 Take Home Exercise
+# Go Http-Client
+Simple HTTP client library for Go 
+
+{WIP}
