@@ -24,19 +24,6 @@ func TestNewRequest(t *testing.T) {
 		assert.IsType(t, httpRequest, request, "It was expected a httpRequest match")
 		assert.Equal(t, nil, err, "No error expected")
 	})
-
-	t.Run("new request created", func(t *testing.T) {
-		method := "GET"
-		url := "www.test.com"
-		headers := http.Header{}
-		requestBody := []string{"with", "json"}
-		httpRequest := &http.Request{}
-
-		request, err := client.newRequest(method, url, headers, requestBody)
-
-		assert.IsType(t, httpRequest, request, "It was expected a httpRequest match")
-		assert.Equal(t, nil, err, "No error expected")
-	})
 }
 
 func TestGetRequestHeaders(t *testing.T) {

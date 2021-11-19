@@ -12,18 +12,18 @@ const (
 	defaultConnectionTimeout  = 1 * time.Second
 )
 
-type httpClient struct {
-	client     *http.Client
-	builder    *builder
-	clientOnce sync.Once
-}
-
 type HttpClientInterface interface {
 	Get(url string, headers http.Header) (*response, error)
 	Post(url string, headers http.Header, body interface{}) (*response, error)
 	Put(url string, headers http.Header, body interface{}) (*response, error)
 	Patch(url string, headers http.Header, body interface{}) (*response, error)
 	Delete(url string, headers http.Header) (*response, error)
+}
+
+type httpClient struct {
+	client     *http.Client
+	builder    *builder
+	clientOnce sync.Once
 }
 
 func (c *httpClient) Get(url string, headers http.Header) (*response, error) {

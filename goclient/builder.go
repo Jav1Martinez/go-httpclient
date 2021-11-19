@@ -19,15 +19,23 @@ type BuilderInterface interface {
 	SetResponseTimeout(timeout time.Duration) BuilderInterface
 	SetConnectionTimeout(timeout time.Duration) BuilderInterface
 	DisableTimeout(disable bool) BuilderInterface
-	Build() HttpClientInterface
+	BuildClient() HttpClientInterface
+	BuildClientMock() HttpClientInterface
 }
 
 func NewBuilder() BuilderInterface {
 	return &builder{}
 }
 
-func (b *builder) Build() HttpClientInterface {
+func (b *builder) BuildClient() HttpClientInterface {
 	return &httpClient{
+		client:  &http.Client{},
+		builder: b,
+	}
+}
+
+func (b *builder) BuildClientMock() HttpClientInterface {
+	return &httpClientMock{
 		builder: b,
 	}
 }

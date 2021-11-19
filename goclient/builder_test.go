@@ -15,13 +15,22 @@ func TestNewBuilder(t *testing.T) {
 	assert.IsType(t, builderInterface, builder, "It was expected a builderInterface match")
 }
 
-func TestBuild(t *testing.T) {
+func TestBuildClient(t *testing.T) {
 	builder := &builder{}
 	httpClientInterface := &httpClient{}
 
-	httpClient := builder.Build()
+	httpClient := builder.BuildClient()
 
 	assert.IsType(t, httpClientInterface, httpClient, "It was expected a httpClientInterface match")
+}
+
+func TestBuildClientMock(t *testing.T) {
+	builder := &builder{}
+	httpClientInterface := &httpClientMock{}
+
+	httpClientMock := builder.BuildClientMock()
+
+	assert.IsType(t, httpClientInterface, httpClientMock, "It was expected a httpClientInterface match")
 }
 
 func TestSetHeaders(t *testing.T) {
@@ -62,10 +71,10 @@ func TestSetConnectionTimeout(t *testing.T) {
 }
 
 func TestDisableTimeout(t *testing.T) {
-	disableTimeout := true
+	DisableTimeout := true
 	builder := &builder{}
 
-	builder.DisableTimeout(disableTimeout)
+	builder.DisableTimeout(DisableTimeout)
 
-	assert.EqualValues(t, disableTimeout, builder.disableTimeout, "Expected to have same bool value")
+	assert.EqualValues(t, DisableTimeout, builder.disableTimeout, "Expected to have same bool value")
 }
