@@ -20,7 +20,7 @@ type BuilderInterface interface {
 	SetConnectionTimeout(timeout time.Duration) BuilderInterface
 	DisableTimeout(disable bool) BuilderInterface
 	BuildClient() HttpClientInterface
-	BuildClientMock() HttpClientInterface
+	BuildClientMock() httpClientMock
 }
 
 func NewBuilder() BuilderInterface {
@@ -34,10 +34,8 @@ func (b *builder) BuildClient() HttpClientInterface {
 	}
 }
 
-func (b *builder) BuildClientMock() HttpClientInterface {
-	return &httpClientMock{
-		builder: b,
-	}
+func (b *builder) BuildClientMock() httpClientMock {
+	return httpClientMock{}
 }
 
 func (b *builder) SetHeaders(headers http.Header) BuilderInterface {

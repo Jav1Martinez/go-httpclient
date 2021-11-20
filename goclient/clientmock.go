@@ -1,9 +1,10 @@
 package goclient
 
-import "net/http"
+import (
+	"net/http"
+)
 
 type httpClientMock struct {
-	builder  *builder
 	getFn    func(url string, headers http.Header) (*response, error)
 	postFn   func(url string, headers http.Header, body interface{}) (*response, error)
 	putFn    func(url string, headers http.Header, body interface{}) (*response, error)
