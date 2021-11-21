@@ -33,6 +33,15 @@ func TestBuildClientMock(t *testing.T) {
 	assert.IsType(t, httpClientInterface, httpClientMock, "It was expected a httpClientInterface match")
 }
 
+func TestBuildClientResponse(t *testing.T) {
+	builder := &builder{}
+	response := response{}
+
+	clientResponse := builder.BuildClientResponse()
+
+	assert.IsType(t, response, clientResponse, "It was expected a response match")
+}
+
 func TestSetHeaders(t *testing.T) {
 	headers := http.Header{}
 	headers.Set("Content-Type", "application/json")
