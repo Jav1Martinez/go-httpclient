@@ -17,29 +17,11 @@ func TestNewBuilder(t *testing.T) {
 
 func TestBuildClient(t *testing.T) {
 	builder := &builder{}
-	httpClientInterface := &httpClient{}
+	httpClientInterface := &client{}
 
 	httpClient := builder.BuildClient()
 
 	assert.IsType(t, httpClientInterface, httpClient, "It was expected a httpClientInterface match")
-}
-
-func TestBuildClientMock(t *testing.T) {
-	builder := &builder{}
-	httpClientInterface := &httpClientMock{}
-
-	httpClientMock := builder.BuildClientMock()
-
-	assert.IsType(t, httpClientInterface, httpClientMock, "It was expected a httpClientInterface match")
-}
-
-func TestBuildClientResponse(t *testing.T) {
-	builder := &builder{}
-	response := response{}
-
-	clientResponse := builder.BuildClientResponse()
-
-	assert.IsType(t, response, clientResponse, "It was expected a response match")
 }
 
 func TestSetHeaders(t *testing.T) {
@@ -49,7 +31,7 @@ func TestSetHeaders(t *testing.T) {
 
 	builder.SetHeaders(headers)
 
-	assert.EqualValues(t, len(headers), len(builder.headers), "It was expected 1 header")
+	assert.EqualValues(t, len(headers), len(builder.GetHeaders()), "It was expected 1 header")
 }
 
 func TestSetMaxIdleConnections(t *testing.T) {
@@ -58,7 +40,7 @@ func TestSetMaxIdleConnections(t *testing.T) {
 
 	builder.SetMaxIdleConnections(maxIdleConnections)
 
-	assert.EqualValues(t, maxIdleConnections, builder.maxIdleConnections, "Expected to have same number value")
+	assert.EqualValues(t, maxIdleConnections, builder.GetMaxIdleConnections(), "Expected to have same number value")
 }
 
 func TestSetResponseTimeout(t *testing.T) {
@@ -67,7 +49,7 @@ func TestSetResponseTimeout(t *testing.T) {
 
 	builder.SetResponseTimeout(responseTimeout)
 
-	assert.EqualValues(t, responseTimeout, builder.responseTimeout, "Expected to have same time value")
+	assert.EqualValues(t, responseTimeout, builder.GetResponseTimeout(), "Expected to have same time value")
 }
 
 func TestSetConnectionTimeout(t *testing.T) {
@@ -76,7 +58,7 @@ func TestSetConnectionTimeout(t *testing.T) {
 
 	builder.SetConnectionTimeout(connectionTimeout)
 
-	assert.EqualValues(t, connectionTimeout, builder.connectionTimeout, "Expected to have same time value")
+	assert.EqualValues(t, connectionTimeout, builder.GetConnectionTimeout(), "Expected to have same time value")
 }
 
 func TestDisableTimeout(t *testing.T) {
@@ -85,5 +67,5 @@ func TestDisableTimeout(t *testing.T) {
 
 	builder.DisableTimeout(DisableTimeout)
 
-	assert.EqualValues(t, DisableTimeout, builder.disableTimeout, "Expected to have same bool value")
+	assert.EqualValues(t, DisableTimeout, builder.GetDisableTimeout(), "Expected to have same bool value")
 }

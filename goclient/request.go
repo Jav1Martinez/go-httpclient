@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func (c *httpClient) newRequest(method string, url string, headers http.Header, body interface{}) (*http.Request, error) {
+func (c *client) newRequest(method string, url string, headers http.Header, body interface{}) (*http.Request, error) {
 
 	fullHeaders := c.getRequestHeaders(headers)
 
@@ -27,7 +27,7 @@ func (c *httpClient) newRequest(method string, url string, headers http.Header, 
 	return request, err
 }
 
-func (c *httpClient) getRequestHeaders(requestHeaders http.Header) http.Header {
+func (c *client) getRequestHeaders(requestHeaders http.Header) http.Header {
 	result := make(http.Header)
 
 	// Add common headers
@@ -46,7 +46,7 @@ func (c *httpClient) getRequestHeaders(requestHeaders http.Header) http.Header {
 	return result
 }
 
-func (c *httpClient) getRequestBody(body interface{}, contentType string) ([]byte, error) {
+func (c *client) getRequestBody(body interface{}, contentType string) ([]byte, error) {
 	if body == nil {
 		return nil, nil
 	}

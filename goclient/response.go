@@ -12,18 +12,18 @@ type response struct {
 	body       []byte
 }
 
-func (r *response) Status() string {
+func (r *response) GetStatus() string {
 	return r.status
 }
-func (r *response) StatusCode() int {
+func (r *response) GetStatusCode() int {
 	return r.statusCode
 }
-func (r *response) Headers() http.Header {
+func (r *response) GetHeaders() http.Header {
 	return r.headers
 }
-func (r *response) BodyString() string {
+func (r *response) GetBodyString() string {
 	return string(r.body)
 }
-func (r *response) BodyJson(target interface{}) error {
+func (r *response) GetBodyJson(target interface{}) error {
 	return json.Unmarshal(r.body, target)
 }
