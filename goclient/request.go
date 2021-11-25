@@ -3,23 +3,22 @@ package goclient
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"net/http"
 	"strings"
 )
 
-func (c *client) newRequest(method string, url string, headers http.Header, body interface{}) (*http.Request, error) {
+func (c *Client) newRequest(method string, url string, headers http.Header, body interface{}) (*http.Request, error) {
 
 	fullHeaders := c.getRequestHeaders(headers)
 
 	requestBody, err := c.getRequestBody(body, fullHeaders.Get("Content-Type"))
 	if err != nil {
-		return nil, errors.New("unable to create the request body")
+		return nil, err
 	}
 
 	request, err := http.NewRequest(method, url, bytes.NewBuffer(requestBody))
 	if err != nil {
-		return nil, errors.New("unable to create a new request")
+		return nil, err
 	}
 
 	request.Header = fullHeaders
@@ -27,7 +26,7 @@ func (c *client) newRequest(method string, url string, headers http.Header, body
 	return request, err
 }
 
-func (c *client) getRequestHeaders(requestHeaders http.Header) http.Header {
+func (c *Client) getRequestHeaders(requestHeaders http.Header) http.Header {
 	result := make(http.Header)
 
 	// Add common headers
@@ -46,7 +45,8 @@ func (c *client) getRequestHeaders(requestHeaders http.Header) http.Header {
 	return result
 }
 
-func (c *client) getRequestBody(body interface{}, contentType string) ([]byte, error) {
+func (c *Client) getRequestBody(body interface{}, contentType string) ([]byte, error) {
+
 	if body == nil {
 		return nil, nil
 	}

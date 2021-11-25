@@ -17,7 +17,7 @@ func TestNewBuilder(t *testing.T) {
 
 func TestBuildClient(t *testing.T) {
 	builder := &builder{}
-	httpClientInterface := &client{}
+	httpClientInterface := &Client{}
 
 	httpClient := builder.BuildClient()
 

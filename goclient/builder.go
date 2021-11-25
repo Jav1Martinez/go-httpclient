@@ -27,7 +27,7 @@ func NewBuilder() BuilderInterface {
 }
 
 func (b *builder) BuildClient() ClientInterface {
-	return &client{
+	return &Client{
 		client:  &http.Client{},
 		builder: b,
 	}

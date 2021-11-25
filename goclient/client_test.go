@@ -8,7 +8,7 @@ import (
 
 func TestGetMaxIdleConnections(t *testing.T) {
 	newBuilder := &builder{}
-	client := client{
+	client := Client{
 		builder: newBuilder,
 	}
 
@@ -31,7 +31,7 @@ func TestGetMaxIdleConnections(t *testing.T) {
 
 func TestGetResponseTimeout(t *testing.T) {
 	newBuilder := &builder{}
-	client := client{
+	client := Client{
 		builder: newBuilder,
 	}
 
@@ -64,7 +64,7 @@ func TestGetResponseTimeout(t *testing.T) {
 
 func TestGetConnectionTimeout(t *testing.T) {
 	newBuilder := &builder{}
-	client := client{
+	client := Client{
 		builder: newBuilder,
 	}
 

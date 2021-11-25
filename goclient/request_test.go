@@ -8,7 +8,7 @@ import (
 
 func TestNewRequest(t *testing.T) {
 	newBuilder := &builder{}
-	client := client{
+	client := Client{
 		builder: newBuilder,
 	}
 
@@ -32,7 +32,7 @@ func TestGetRequestHeaders(t *testing.T) {
 	commonHeaders.Set("User-Agent", "go-httpclient")
 	requestHeaders := make(http.Header)
 	requestHeaders.Set("X-Test", "TEST-VALUE")
-	client := client{}
+	client := Client{}
 	client.builder = &builder{}
 	client.builder.headers = commonHeaders
 
@@ -42,7 +42,7 @@ func TestGetRequestHeaders(t *testing.T) {
 }
 
 func TestGetRequestBody(t *testing.T) {
-	client := client{}
+	client := Client{}
 
 	t.Run("noBodyNilResponse", func(t *testing.T) {
 		body, err := client.getRequestBody(nil, "")

@@ -1,7 +1,6 @@
 package goclient
 
 import (
-	"errors"
 	"io/ioutil"
 	"net/http"
 	"sync"
@@ -14,7 +13,7 @@ const (
 	defaultConnectionTimeout  = 1 * time.Second
 )
 
-type client struct {
+type Client struct {
 	client     *http.Client
 	builder    *builder
 	clientOnce sync.Once
@@ -28,30 +27,30 @@ type ClientInterface interface {
 	Delete(url string, headers http.Header) (*response, error)
 }
 
-func (c *client) Get(url string, headers http.Header) (*response, error) {
+func (c *Client) Get(url string, headers http.Header) (*response, error) {
 	return c.do(http.MethodGet, url, headers, nil)
 }
-func (c *client) Post(url string, headers http.Header, body interface{}) (*response, error) {
+func (c *Client) Post(url string, headers http.Header, body interface{}) (*response, error) {
 	return c.do(http.MethodPost, url, headers, body)
 }
-func (c *client) Put(url string, headers http.Header, body interface{}) (*response, error) {
+func (c *Client) Put(url string, headers http.Header, body interface{}) (*response, error) {
 	return c.do(http.MethodPut, url, headers, body)
 }
-func (c *client) Patch(url string, headers http.Header, body interface{}) (*response, error) {
+func (c *Client) Patch(url string, headers http.Header, body interface{}) (*response, error) {
 	return c.do(http.MethodPatch, url, headers, body)
 }
-func (c *client) Delete(url string, headers http.Header) (*response, error) {
+func (c *Client) Delete(url string, headers http.Header) (*response, error) {
 	return c.do(http.MethodDelete, url, headers, nil)
 }
 
-func (c *client) getMaxIdleConnections() int {
+func (c *Client) getMaxIdleConnections() int {
 	if c.builder.GetMaxIdleConnections() > 0 {
 		return c.builder.GetMaxIdleConnections()
 	}
 	return defaultMaxIdleConnections
 }
 
-func (c *client) getResponseTimeout() time.Duration {
+func (c *Client) getResponseTimeout() time.Duration {
 	if c.builder.GetResponseTimeout() > 0 {
 		return c.builder.GetResponseTimeout()
 	}
@@ -61,7 +60,7 @@ func (c *client) getResponseTimeout() time.Duration {
 	return defaultResponseTimeout
 }
 
-func (c *client) getConnectionTimeout() time.Duration {
+func (c *Client) getConnectionTimeout() time.Duration {
 	if c.builder.GetConnectionTimeout() > 0 {
 		return c.builder.GetConnectionTimeout()
 	}
@@ -71,11 +70,11 @@ func (c *client) getConnectionTimeout() time.Duration {
 	return defaultConnectionTimeout
 }
 
-func (c *client) do(method string, url string, headers http.Header, body interface{}) (*response, error) {
+func (c *Client) do(method string, url string, headers http.Header, body interface{}) (*response, error) {
 
 	request, err := c.newRequest(method, url, headers, body)
 	if err != nil {
-		return nil, errors.New("unable to do the request")
+		return nil, err
 	}
 
 	httpResponse, err := HttpClient.Do(request)
